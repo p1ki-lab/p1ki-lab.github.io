@@ -7,7 +7,7 @@ lang: ko
 timezone: Asia/Seoul
 
 title: p1ki
-tagline: 열정 원툴의 기록지
+tagline: 
 description: 공부하고 활동한 내용을 정리하며 학습과 성장 과정을 기록하는 p1ki의 블로그입니다.
 url: "https://p1ki-lab.github.io"
 baseurl: ""
