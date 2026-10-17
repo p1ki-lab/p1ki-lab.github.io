@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Prompt Injection 논문 트렌드 분석"
-description: "간접 프롬프트 인젝션의 위협부터 StruQ, SecAlign, DefensiveToken까지 다섯 논문으로 살펴본 방어 연구의 흐름"
+description: "다섯 논문으로 살펴본 방어 연구의 흐름"
 date: 2026-10-17 00:00:00 +0900
 categories: [논문]
 tags: [Prompt Injection, StruQ, SecAlign, DefensiveToken, AI 보안]
