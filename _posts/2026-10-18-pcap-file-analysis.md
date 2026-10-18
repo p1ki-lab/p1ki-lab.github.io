@@ -291,3 +291,16 @@ flags: 16 (= ACK)
 ## 6. 느낀 점
 
 처음에는 모르는 용어도 많고 실행 결과도 복잡해서 어렵게 느껴졌다. 그런데 개념을 공부하고 패킷을 하나씩 살펴보니 생각보다 이해할 만했다. 실행결과를 읽어보면 누가 누구에게 보내는지, 어떤 통신을 하는지가 보여 재밌었다.
+
+
+## 7. 실제 작성한 코드
+
+이번 실습에 사용한 코드와 합성 PCAP 샘플이다. 코드는 AI가 작성했고, 직접 실행한 결과는 위에 정리했다.
+
+- [전체 코드·샘플·실행 안내 ZIP 다운로드](/assets/files/pcap-file-analysis/pcap-mission.zip)
+- [패킷 분석 프로그램 — analyze.py](/assets/files/pcap-file-analysis/analyze.py)
+- [합성 샘플 생성 코드 — make_sample.py](/assets/files/pcap-file-analysis/make_sample.py)
+- [TShark 비교 및 입력 검증 코드 — check.py](/assets/files/pcap-file-analysis/check.py)
+- [필요한 라이브러리 — requirements.txt](/assets/files/pcap-file-analysis/requirements.txt)
+
+ZIP에는 가상환경이 포함되어 있지 않다. Python과 dpkt 설치가 필요하며, 검증 코드의 TShark 경로는 Windows 기본 설치 경로를 기준으로 한다. 자세한 실행 방법은 ZIP 안의 README.md에서 확인할 수 있다.
