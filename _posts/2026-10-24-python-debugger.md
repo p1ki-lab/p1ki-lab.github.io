@@ -514,13 +514,13 @@ if reasons or reached:
 디버거 라는 것을 항상 기술로써 활용해보기만 했었는데, 이걸 직접 원하는 기능까지 추가해서 만들어보니 흥미로웠다. 디버거 기능에서 실행 정보가 얼마나 중요한 역할을 하는지에 대해 머릿속으로 체계화 해서 정리할 수 있게 되었다. 특히 실행 이벤트와 프레임 정보가 중단점, 변수 조회, 예외 정지에 어떻게 쓰이는지 정리하면서 디버거의 동작을 더 구체적으로 이해할 수 있었다.
 또한, 꼭 디버거가 아니더라도, 자신이 평소 자연스럽게 사용하던 프로그램을 직접 만들어보는 경험은 정말 큰 도움이 된다는 걸 느꼈다. 
 
-## 프로그램과 매뉴얼
+## 7. 프로그램과 메뉴얼
 
 - [디버거 코드 다운로드](/assets/files/python-debugger/debugger.py)
 - [사용 매뉴얼](/assets/files/python-debugger/MANUAL.md)
 - [예제·테스트를 포함한 전체 파일 ZIP](/assets/files/python-debugger/python-debugger.zip)
 
-## 7. 참고자료
+## 8. 참고자료
 
 ### The Debugging Book
 
