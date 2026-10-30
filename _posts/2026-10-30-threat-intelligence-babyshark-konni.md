@@ -7,7 +7,7 @@ categories: [블로그]
 tags: [Threat Intelligence, BABYSHARK, Konni, APT]
 ---
 
-**Threat Intelligence(위협 인텔리전스)**는 사이버 위협에 관한 정보를 수집·분석해, 보안 판단과 대응에 활용할 수 있도록 만든 증거 기반의 지식이다.
+**Threat Intelligence(위협 인텔리전스)** 는 사이버 위협에 관한 정보를 수집·분석해, 보안 판단과 대응에 활용할 수 있도록 만든 증거 기반의 지식이다.
 
 이번 포스트에서는 아래 두 보고서에서 등장하는 두 공격자가 서로 어떤 관계가 있는지 비교해보았다. 
 
@@ -20,7 +20,7 @@ tags: [Threat Intelligence, BABYSHARK, Konni, APT]
 
 ## 1. 이름 구분 
 
-### 1. 자료 A,B
+### 1-1. 자료 A,B
 Huntress는 BABYSHARK를 북한 관련 공격자가 사용하는 **악성코드 계열**이라고 설명한다. ASEC는 자료 B의 공격 주체를 **Konni 공격 그룹**으로 표현한다.
 
 >BABYSHARK는 공격자 명이 아니라, 악성코드 계열의 이름이다. 
@@ -31,7 +31,7 @@ Huntress는 BABYSHARK를 북한 관련 공격자가 사용하는 **악성코드 
 
 ---
 
-### 2. BABYSHARK의 최초 명명 자료
+### 1-2. BABYSHARK의 최초 명명 자료
 
 Unit 42는 2019년 2월 22일 공개한 보고서에서 새로 확인한 VBScript 기반 악성코드에 BabyShark라는 이름을 붙였다. 
 분석 대상은 2018년 11월 발송된 표적 피싱 메일이었다. 
@@ -43,7 +43,7 @@ Unit 42가 분석한 초기 BabyShark 유포 사례에서는 공격자가 핵 �
 
 ---
 
-### 3. KONNI의 최초 명명 자료
+### 1-3. KONNI의 최초 명명 자료
 
 Cisco Talos가 2017년 5월 3일 공개한 최초 명명 보고서를 보면 "Talos has named this malware KONNI" 라는 문장이 나오는데, 이걸 통해 KONNI도 처음에는 공격자 그룹명이 아니라 악성코드의 이름이었다는 걸 알 수 있었다. 
 
@@ -53,7 +53,9 @@ Talos는 KONNI(악성코드)를 감염된 컴퓨터를 원격으로 조작하는
 
 ---
 
-## 2. 두 자료 특징 비교 
+## 2. 두 사건 비교 
+
+### 2-1. 보고서 내용 비교
 
 |비교 항목|자료 A: P|자료 B: Q|
 |---|---|---|
@@ -63,63 +65,111 @@ Talos는 KONNI(악성코드)를 감염된 컴퓨터를 원격으로 조작하는
 |지속성|예약 작업·레지스트리 활용|예약 작업으로 1분마다 반복 실행|
 |외부 통신|Google Drive와 공격자 서버 활용|공격자 서버에서 명령 수신|
 |분석 한계|일부 DLL 확보 실패|서버 접속 불가로 최종 명령 확인 실패|
-
+*지속성 : 재부팅이나 시간 경과 뒤에도 공격자의 접근을 유지하는 방식이다.*
 출처: [Huntress 자료 A](https://www.huntress.com/blog/targeted-apt-activity-babyshark-is-out-for-blood), [ASEC 자료 B](https://asec.ahnlab.com/ko/59625/)
 
-공통적으로 눈에 들어온 것은 미끼 문서, 스크립트 실행, 예약 작업인데, 이것만으로는 두 공격자가 같다고 판단하긴 어려웠다. 꼭 같은 공격자가 아니어도 여러 공격자가 사용할 수 있는 방법이기 때문이다. 
+공통적으로 눈에 들어온 것은 미끼 문서, 스크립트 실행, 예약 작업인데, 이것만으로는 두 공격자가 같다고 판단하긴 어려웠다. 꼭 같은 공격자가 아니어도 여러 공격자가 사용할 수 있는 방법이기 때문이다.
 
 ---
 
-## 3. 추가 자료에서 확인한 연결과 한계
+### 2-2. 인프라 비교
 
-두 자료만 봤을 땐, P와 Q가 서로 같은 공격자라고 확신할 수 없었기 때문에, 추가 자료를 찾아보았다. 
+두 사건에서 같은 서버나 도메인을 사용했는지도 살펴보았다.
+인프라는 공격에 사용된 서버·도메인·계정 등을 뜻하는데, **같은 서버나 도메인이 여러 사건에서 반복해서 등장하면, 공격에 쓰인 자원이 재사용됐는지 살펴볼 단서**가 된다. 그래서 두 사건 사이에 이런 연결점이 있는지 알아보려고, 보고서에 공개된 주소를 모아 도메인과 경로를 비교해 보았다.
 
-### 1. Proofpoint 보고서 
+자료 A의 IOC(침해 흔적) 목록에는 도메인 5개가, 자료 B의 URL 항목에는 주소 1개가 공개되어 있었다.
 
-Proofpoint의 2021년 보고서에 따르면 Proofpoint가 TA406으로 추적하는 공격자의 사용 악성코드에 KONNI와 BabyShark가 모두 포함되어 있다고 나와있다. 
+>주소의 점은 실수로 접속하는 것을 막기 위해 `[.]`으로 표시했다.
 
->  이 내용은 KONNI와 BabyShark의 사용 주체가 일부 겹쳤다는 근거가 되지만, 자료 A의 P와 자료 B의 Q가 동일한 공격자라는 사실을 직접 보여주지는 않는다.
+|자료|공개된 도메인|
+|---|---|
+|A|`retmodul[.]com`, `hodbeast[.]com`, `worldinfocontact[.]club`, `frebough[.]com`, `beastmodser[.]club`|
+|B|`gjdow[.]atwebpages[.]com`|
 
-추가로 Proofpoint는 TA406이 TA427의 도구·코드에 접근했거나, 두 주체가 개발 자원을 공유했을 가능성을 제시했다. 이는 연구진의 추정이며, 자료 A와 B의 공격자 사이에서 직접 확인된 관계는 아니다. 
+목록에서 일치하는 도메인은 없었다. 
 
-또 이 보고서는 2021년에 발행됐기 때문에, 2023년 공개된 자료 B의 사건을 직접 설명하는 자료로 받아들일 수 없었다. 따라서 두 악성코드의 과거 사용 이력이 겹친다는 참고 근거로 받아들였다.
+#### 주소별 용도와 근거
 
-출처: [Proofpoint 원문 보고서, 인쇄 페이지 6–7](https://www.proofpoint.com/us/resources/threat-reports/triple-threat-north-korea-aligned-ta406-scams-spies-and-steals)
+`hodbeast[.]com`은 수집한 정보를 업로드하는 데 사용됐다. 자료 A의 **Following Breadcrumbs**에서는 시스템 정보를 파일에 저장하고 인코딩한 뒤, 이 도메인의 `/silver/upload.php`로 POST 요청을 보내 전송했다고 설명한다. POST는 데이터를 서버로 보내는 HTTP 요청 방식이다.
 
-### 2. ESET 보고서
+`worldinfocontact[.]club`은 명령을 받아오는 C2로 사용됐다. 같은 절에서는 악성코드가 일정한 간격으로 이 주소에 접속해 대기 중인 명령을 받고 실행한다고 설명한다.
 
-ESET의 2022년 보고서에서도 BabyShark 관련 활동과 Konni 활동을 함께 확인할 수 있었다.
+> C2는 공격자가 악성코드에 명령을 전달하거나 정보를 받는 서버를 뜻한다.
 
-ESET는 Kimsuky 항목에서 홍콩 금융회사를 대상으로 한 공격을 BabyShark Cluster의 장기 캠페인에 속하는 활동이라고 설명했다. 반면 Konni는 별도 항목으로 구분했고, 변조된 Sumatra PDF 뷰어를 이용해 외교 분야를 공격한 사례를 소개했다.
+`beastmodser[.]club`은 미끼 문서와 DLL을 전달하는 데 사용됐다. 자료 A의 **Finding the Phish**에 나오는 매크로 분석에서는 이 도메인에서 사용자에게 보여줄 Word 문서와 `version.tmp`를 내려받고, `version.tmp`의 이름을 `version.dll`로 바꾸는 과정을 설명한다.
 
-ESET는 이 보고서에서 두 활동을 별도 항목으로 소개했다. 다만 이것만으로 두 활동이 서로 무관하다고 판단할 수는 없다. 따라서 이 보고서는 직접적인 연결 근거보다는 활동 분류를 비교하는 보조 자료로 참고했다.
+출처: [Huntress 자료 A — Following Breadcrumbs / Finding the Phish](https://www.huntress.com/blog/targeted-apt-activity-babyshark-is-out-for-blood)
 
-출처: [ESET APT Activity Report T2 2022, 10쪽](https://web-assets.eset.com/fileadmin/ESET/INT/B2B_Resource_centrum/Reports/T2-2022_APT-Activity-Report.pdf)
+자료 B에서는 `WindowsHotfixUpdate.ps1`이 C2에서 명령을 받아온다고 설명한다. 이어 다른 스크립트가 그 명령을 복호화해 XML 형태로 로드하는 과정도 소개한다. 자료 B의 URL 항목에는 `gjdow[.]atwebpages[.]com`이 공개되어 있다.
 
-### 3. 추가 자료로 확인한 범위
+출처: [ASEC 자료 B — WindowsHotfixUpdate.ps1 분석 및 URL 항목](https://asec.ahnlab.com/ko/59625/)
 
-지금까지 찾은 내용을 정리하면 다음과 같다.
+도메인 뒤의 경로와 요청에 붙는 값도 비교했다.
 
-|항목|확인한 내용|아직 확인하지 못한 내용|
+|자료|보고서에서 확인한 경로와 요청 값|설명|
 |---|---|---|
-|악성코드|Proofpoint가 TA406의 KONNI·BabyShark 사용 이력을 보고했다|자료 A·B의 악성코드 사이에 직접적인 코드 일치가 있는지|
-|공격 방식|두 사건 모두 미끼 문서, 스크립트, 예약 작업을 활용했다|이 조합이 두 공격자를 식별할 만큼 고유한 특징인지|
-|인프라|각 보고서에서 외부 서버와의 통신을 확인할 수 있었다|두 사건이 같은 공격자 통제 서버·계정을 공유했는지|
-|활동 시기|관련 악성코드의 과거 사용 이력이 존재한다|두 사건이 하나의 연속된 작전인지|
+|A|`/silver/upload.php`|수집 정보 업로드|
+|A|`/111/alex/expres.php?op=2`|명령 수신|
+|A|`/sil/0304/d.php?na=version.gif`|이후 DLL로 이름이 바뀌는 파일 다운로드|
+|B|`/dn.php?name=[Computer`|보고서 URL 항목에 공개된 부분|
+
+자료 B의 주소는 보고서에 표시된 부분 그대로 옮겼다. 비교한 경로도 서로 달랐다. 두 자료 모두 `.php`가 등장해 전체 경로와 요청에 붙는 값까지 함께 살펴보았다.
+
+비교 결과, 공개된 도메인과 경로는 서로 달랐고 외부 서버에서 명령을 받아온다는 공통점이 있었다.
+
+출처: [Huntress 자료 A — IOC 목록 및 본문 분석](https://www.huntress.com/blog/targeted-apt-activity-babyshark-is-out-for-blood), [ASEC 자료 B — URL 항목 및 PowerShell 분석](https://asec.ahnlab.com/ko/59625/)
+
+---
+
+## 3. 추가 보고서 비교
+
+두 사건을 비교한 뒤, BabyShark와 Konni가 다른 보고서에서는 어떻게 다뤄지는지 찾아보았다.
+
+### 3-1. Proofpoint
+
+Proofpoint의 2021년 11월 보고서에서는 TA406이 사용하는 악성코드에 KONNI와 BabyShark가 함께 나열되어 있었다. 또 TA406으로 추적하는 활동이 다른 곳에서는 Kimsuky, Thallium, Konni Group으로도 불린다고 설명한다.
+
+사용 시점에 관한 설명도 있었다. Proofpoint는 TA406이 적어도 2019년 초에는 BabyShark를 사용할 수 있었지만, 최초 사용자는 아니라고 평가했다. TA427의 BabyShark 사용은 늦어도 2018년 11월까지 거슬러 올라간다고 설명한다. 이를 바탕으로 연구진은 TA406이 TA427의 도구나 코드에 접근했거나, 개발 자원을 공유했을 가능성을 제시했다.
+
+출처: [Proofpoint 보고서 — 5쪽 TA406 attribution, 6쪽 TA406, 7쪽 TA427](https://www.proofpoint.com/us/resources/threat-reports/triple-threat-north-korea-aligned-ta406-scams-spies-and-steals)
+
+### 3-2. ESET
+
+ESET의 T2 2022 보고서는 BabyShark 관련 활동과 Konni 활동을 별도 항목에서 다뤘다. Kimsuky 항목에서는 홍콩 금융회사를 대상으로 한 공격을 BabyShark cluster의 장기 캠페인으로 설명했고, Konni 항목에서는 변조된 Sumatra PDF 뷰어를 이용한 외교 분야 공격을 소개했다. 여기서 cluster는 연구자가 관련 있다고 보고 묶어 추적하는 활동 집합을 뜻한다.
+
+Proofpoint에서는 TA406의 사용 악성코드에 두 이름이 함께 등장했고, ESET에서는 BabyShark 관련 활동과 Konni 활동이 각각 소개되어 있었다. 두 보고서를 나란히 읽으며, 기관마다 활동을 묶고 이름을 붙이는 방식에도 차이가 있다는 점을 알게 됐다.
+
+출처: [ESET APT Activity Report T2 2022 — 10쪽 Kimsuky / Konni](https://web-assets.eset.com/fileadmin/ESET/INT/B2B_Resource_centrum/Reports/T2-2022_APT-Activity-Report.pdf#page=10)
+
 
 ---
 
 ## 4. 두 공격자의 관계에 대한 내 생각
 
-결론부터 말하자면, 내가 조사한 자료에서는 P와 Q가 동일한 공격자라고 판단할 만한 직접적인 근거를 찾지 못했다.
+### 4-1. 정보 정리
 
-두 사건에는 미끼 문서, 스크립트 실행, 예약 작업이라는 공통점이 있었다. 추가로 Proofpoint가 TA406의 KONNI와 BabyShark 사용 이력을 함께 보고한 점도 확인했다.
+지금까지 찾은 내용을 정리하면 다음과 같다.
 
-하지만 과거의 악성코드 사용 이력이 지정된 두 사건의 수행 주체까지 증명하지는 않는다. 이번 조사에서는 두 사건 사이의 코드 일치나 같은 공격자 통제 서버·계정의 재사용을 확인하지 못했다.
+| 항목    | 확인한 내용                                                             | 아직 확인하지 못한 내용                    |
+| ----- | ------------------------------------------------------------------ | -------------------------------- |
+| 악성코드  | Proofpoint가 TA406의 KONNI·BabyShark 사용 이력을 보고했다                     | 자료 A·B의 악성코드 사이에 직접적인 코드 일치가 있는지 |
+| 공격 방식 | 두 사건 모두 미끼 문서, 스크립트, 예약 작업을 활용했다                                   | 이 조합이 두 공격자를 식별할 만큼 고유한 특징인지     |
+| 인프라   | 공개 도메인은 A 5개·B 1개로 일치하지 않았고, 비교한 경로도 달랐다. 두 사건 모두 외부 서버에서 명령을 받아왔다 | 공개 주소 외에 서버·계정의 공유 이력이 있는지       |
+| 활동 시기 | 관련 악성코드의 과거 사용 이력이 존재한다                                            | 두 사건이 하나의 연속된 작전인지               |
 
-따라서 두 활동 사이의 연관 가능성은 남겨 두되, P와 Q가 동일한 공격자라는 결론은 보류했다. 이는 두 공격자가 서로 다르다는 뜻도 아니다. 현재 확보한 자료만으로는 관계를 확정하기 어렵다는 의미이다.
+### 4-2. 내 판단
 
-출처: [Proofpoint 원문 보고서, 인쇄 페이지 6–7](https://www.proofpoint.com/us/resources/threat-reports/triple-threat-north-korea-aligned-ta406-scams-spies-and-steals)
+결론부터 말하자면, 내가 조사한 자료에서는 P와 Q가 같은 공격자라고 판단할 만한 직접적인 근거를 찾지 못했다.
+
+두 사건에는 미끼 문서, 스크립트 실행, 예약 작업이라는 공통점이 있었다. 외부 서버에서 명령을 받아 실행하는 방식도 비슷했다. 다른 보고서를 찾아보니 Proofpoint에서는 TA406이 KONNI와 BabyShark를 모두 사용했다고 설명하고 있었다. 또 TA406이 TA427의 도구나 코드에 접근했거나 개발 자원을 공유했을 가능성도 제시했다.
+
+이런 내용을 보면 두 활동 사이에 연관성이 있을 가능성은 있다. 하지만 같은 악성코드를 사용한 이력이 있다고 해서, 이번에 비교한 두 사건도 같은 공격자가 일으켰다고 볼 수는 없었다.
+
+인프라도 비교해 보았는데, 자료 A의 도메인 5개와 자료 B의 도메인 1개 중 겹치는 것은 없었다. 자료 A의 `/silver/upload.php`, `/111/alex/expres.php`, `/sil/0304/d.php`와 자료 B의 `/dn.php`도 서로 달랐다. 명령을 받아오는 용도는 비슷했지만, 비교한 도메인과 경로에서는 같은 주소를 다시 사용한 흔적을 찾지 못했다. 두 사건에서 악성코드의 코드가 일치하는지, 같은 공격자 통제 계정을 사용했는지도 이번 조사에서는 확인하지 못했다.
+
+그래서 두 활동 사이의 연관 가능성은 남겨 두고, P와 Q가 같은 공격자라는 결론은 보류했다. 두 공격자가 서로 다르다고 판단한 것은 아니다. 지금까지 찾은 자료로는 둘의 관계를 확정하기 어렵다고 판단했다.
+
+출처: [Huntress 자료 A — IOC 목록 및 본문 분석](https://www.huntress.com/blog/targeted-apt-activity-babyshark-is-out-for-blood), [ASEC 자료 B — URL 항목 및 PowerShell 분석](https://asec.ahnlab.com/ko/59625/), [Proofpoint 보고서 — 6–7쪽](https://www.proofpoint.com/us/resources/threat-reports/triple-threat-north-korea-aligned-ta406-scams-spies-and-steals)
 
 ---
 ## 5. 느낀 점
