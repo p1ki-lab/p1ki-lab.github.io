@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Threat Intelligence: BABYSHARK와 Konni의 관계 비교"
-description: "Huntress와 ASEC 보고서를 바탕으로 BABYSHARK 사용 공격자와 Konni의 관계를 비교한 기록"
 date: 2026-10-30 00:00:00 +0900
 categories: [블로그]
 tags: [Threat Intelligence, BABYSHARK, Konni, APT]
