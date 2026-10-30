@@ -133,6 +133,8 @@ Proofpoint의 2021년 11월 보고서에서는 TA406이 사용하는 악성코�
 
 출처: [Proofpoint 보고서 — 5쪽 TA406 attribution, 6쪽 TA406, 7쪽 TA427](https://www.proofpoint.com/us/resources/threat-reports/triple-threat-north-korea-aligned-ta406-scams-spies-and-steals)
 
+---
+
 ### 3-2. ESET
 
 ESET의 T2 2022 보고서는 BabyShark 관련 활동과 Konni 활동을 별도 항목에서 다뤘다. Kimsuky 항목에서는 홍콩 금융회사를 대상으로 한 공격을 BabyShark cluster의 장기 캠페인으로 설명했고, Konni 항목에서는 변조된 Sumatra PDF 뷰어를 이용한 외교 분야 공격을 소개했다. 여기서 cluster는 연구자가 관련 있다고 보고 묶어 추적하는 활동 집합을 뜻한다.
@@ -156,6 +158,9 @@ Proofpoint에서는 TA406의 사용 악성코드에 두 이름이 함께 등장�
 | 공격 방식 | 두 사건 모두 미끼 문서, 스크립트, 예약 작업을 활용했다                                   | 이 조합이 두 공격자를 식별할 만큼 고유한 특징인지     |
 | 인프라   | 공개 도메인은 A 5개·B 1개로 일치하지 않았고, 비교한 경로도 달랐다. 두 사건 모두 외부 서버에서 명령을 받아왔다 | 공개 주소 외에 서버·계정의 공유 이력이 있는지       |
 | 활동 시기 | 관련 악성코드의 과거 사용 이력이 존재한다                                            | 두 사건이 하나의 연속된 작전인지               |
+
+
+---
 
 ### 4-2. 내 판단
 
